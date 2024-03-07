@@ -10,7 +10,7 @@
 #define SEED 2
 #define SEED_VARIATION 10 // при SEED < SEED_VARIATION генерируются разные уникальные массивы;
 
-int findPairN2(int arr[MAX], int key, int limRight, int limLeft = 0) {
+int findPairN2(int arr[MAX], int key, int limRight, int limLeft = 0) {  // квадратичный поиск
     auto begin = std::chrono::steady_clock::now();  // начало отсчета
     for (int i = limLeft; i < limRight; i++) {
         for (int j = i + 1; j < limRight; j++) {
@@ -28,7 +28,7 @@ int findPairN2(int arr[MAX], int key, int limRight, int limLeft = 0) {
     return time_span.count();
 }
 
-int findPairLinear(int arr[MAX], int key, int limRight, int limLeft = 0) {
+int findPairLinear(int arr[MAX], int key, int limRight, int limLeft = 0) {  // линейный поиск
     int left = limLeft;
     int right = limRight - 1;
 

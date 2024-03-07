@@ -10,6 +10,8 @@ loop_times = 100
 
 ###########################################################################
 # Приводим данные к нужному виду
+
+# Нужно избавиться от копипаста
 data = []
 with open('D:\\Study\\Programming\\2 sem\\2semestry_cpp\\lab1\\outputN2.txt', 'r') as file:
     for i in file:
