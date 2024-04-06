@@ -5,9 +5,9 @@
 
 #define MIN 100
 #define MAX 50000
-#define STEP 10
-#define LOOP_TIMES 100
-#define SEED 2
+#define STEP 1000
+#define LOOP_TIMES 1000
+#define SEED 5
 #define SEED_VARIATION 10 // при SEED < SEED_VARIATION генерируются разные уникальные массивы;
 
 int findPairN2(int arr[MAX], int key, int limRight, int limLeft = 0) {  // квадратичный поиск
