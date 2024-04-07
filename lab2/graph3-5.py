@@ -3,8 +3,8 @@ import numpy as np
 import matplotlib as mpl
 # import math
 
-min_ = 10000
-max_ = 150000
+min_ = 100
+max_ = 100000
 step = 100
 loop_times = 100
 
@@ -22,15 +22,14 @@ for k in range(3):
             data.append(i.split())
 
     for i in range(len(data)):
-        for j in range(len(data[1])):
+        for j in range(len(data[0])):
             data[i][j] = int(data[i][j])
 
-    x[k] = [i for i in range(min_, max_+step, step)]
-    y[k] = [0]*((max_ - min_)//step + 1)
+    x[k] = [i for i in range(min_, max_, step)]
+    y[k] = [0]*((max_ - min_)//step)
 
     for i in range(len(data)):
-        for j in range(len(y[k])):
-            y[k][i] += data[i][j]
+        y[k][i] += sum(data[i])
     for i in range(len(y[k])):
         y[k][i] /= loop_times
         y[k][i] /= 1000000
@@ -91,6 +90,6 @@ plt.show()
 print('Clear files? y/n')
 if (input().lower() == 'y'):
     for i in range(3):
-        with open('D:\\Study\\Programming\\2 sem\\2semestry_cpp\\lab1\\' + files[i], 'w') as file:
+        with open('D:\\Study\\Programming\\2 sem\\2semestry_cpp\\lab2\\' + files[i], 'w') as file:
             file = ''
 

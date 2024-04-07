@@ -6,10 +6,10 @@
 #include <iterator>
 #include <math.h>
 
-#define START_SIZE 10000
+#define START_SIZE 100
 #define LOOP_TIMES 100
 #define STEP 100
-#define END_SIZE 150000
+#define END_SIZE 100000
 
 int* copyArray(int data[], int size, int step) {
     int* newArray = new int[size + step];
