@@ -3,20 +3,30 @@
 #include <chrono>
 #include <random>
 #include <string>
-#include <iterator>
-#include <math.h>
 
-#define START_SIZE 100
+#define START_SIZE 10000
+#define END_SIZE 1000000
+#define STEP 10000
 #define LOOP_TIMES 100
-#define STEP 100
-#define END_SIZE 100000
+#define NEW_ELEMENT 1337
+#define NUM_OF_NEW_ELEMENTS 100
 
-int* copyArray(int data[], int size, int step) {
-    int* newArray = new int[size + step];
-    for (int i = 0; i < size; i++) {
-        newArray[i] = data[i];
+int* copyArray(int data[], int sizeData, int result[]) {
+    for (int i = 0; i < sizeData; i++) {
+        result[i] = data[i];
     }
-    return newArray;
+    return result;
+}
+
+int* biggerArray(int data[], int sizeData, int quantityOfNewElements){
+    int *result = new int[sizeData + quantityOfNewElements];
+    return copyArray(data, sizeData, result);
+}
+
+void fillNewElements(int result[], int sizeData, int quantityOfNewElements){
+    for(int i = sizeData; i < sizeData + quantityOfNewElements; i++){
+        result[i] = NEW_ELEMENT;
+    }
 }
 
 auto timerStart() {
@@ -29,30 +39,12 @@ int timerStop(auto begin) {
     return static_cast<int>(time_span.count());
 }
 
-auto test1(int data[], int size, int newData) {
+auto test1(int data[], int size, int quantityOfNewElements) {
     auto ts = timerStart();
-    int* newArray = copyArray(data, size, 1);
-    newArray[size] = newData;
+    int* newArray = biggerArray(data, size, quantityOfNewElements);
+    fillNewElements(newArray, size, quantityOfNewElements);
     int time = timerStop(ts);
-    delete[] newArray; 
-    return time;
-}
-
-auto test2(int data[], int size, int newData) {
-    auto ts = timerStart();
-    int* newArray = copyArray(data, size, STEP);
-    newArray[size] = newData;
-    int time = timerStop(ts);
-    delete[] newArray; 
-    return time;
-}
-
-auto test3(int data[], int size, int newData) {
-    auto ts = timerStart();
-    int* newArray = copyArray(data, size, size);
-    newArray[size] = newData;
-    int time = timerStop(ts);
-    delete[] newArray; 
+    delete[] newArray;
     return time;
 }
 
@@ -66,72 +58,29 @@ void writeInFile(std::string filename, int *result, int size){
 }
 
 int main(){
-    int count = 1;
-    int newData = 1337;
     std::string txtNames[] = { "3-5_firstTest.txt", "3-5_secondTest.txt", "3-5_thirdTest.txt" };
 
-    // for (int i = 0; i < END_SIZE; i += STEP) {
-    //     int data1[START_SIZE + count] = {0};   // + 1
-    //     // int data2[START_SIZE + i] = {0};  // + STEP
-    //     // int data3[START_SIZE*2] = {0};   // *2
-    //     int result1[START_SIZE + count] = {0};
-    //     // int result2[START_SIZE + count] = {0};
-    //     // int result3[START_SIZE + count] = {0};
+    for (int k = 0; k < 3; k++){
+        for (int i = START_SIZE; i < END_SIZE; i += STEP){
+            int *data = new int[i]();
+            int timeResult[LOOP_TIMES] = {0};
+            if (k % 3 == 0){
+                for (int j = 0; j < LOOP_TIMES; j++){
+                    timeResult[j] = test1(data, i, 1);
+                }
+            } else if (k % 3 == 1){
+                for (int j = 0; j < LOOP_TIMES; j++){
+                    timeResult[j] = test1(data, i, NUM_OF_NEW_ELEMENTS);
+                }  
+            } else {
+                for (int j = 0; j < LOOP_TIMES; j++){
+                    timeResult[j] = test1(data, i, i);
+                }  
+            }
+            writeInFile(txtNames[k], timeResult, LOOP_TIMES);
 
-    //     for (int j = 0; j < LOOP_TIMES; j++) {
-    //         result1[j] = test1(data1, START_SIZE + count, newData);
-    //         // result2[j] = test2(data2, START_SIZE + i, newData);
-    //         // result3[j] = test3(data3, START_SIZE*pow(2, i), newData);
-    //     }
-    //     writeInFile(txtNames[0], result1, LOOP_TIMES);
-    //     // writeInFile(txtNames[1], result2, LOOP_TIMES);
-    //     // writeInFile(txtNames[2], result3, LOOP_TIMES);
-    //     count++;
-    // }
-
-    for (int i = START_SIZE; i < END_SIZE; i += STEP){
-        int data[i] = {0};
-        int timeResult[LOOP_TIMES] = {0};
-        for (int j = 0; j < LOOP_TIMES; j++){
-            timeResult[j] = test1(data, i, newData);
+            delete[] data;
         }
-        writeInFile(txtNames[0], timeResult, LOOP_TIMES);
-
-        for (int j = 0; j < LOOP_TIMES; j++){
-            timeResult[j] = test2(data, i, newData);
-        }
-        writeInFile(txtNames[1], timeResult, LOOP_TIMES);
-
-        for (int j = 0; j < LOOP_TIMES; j++){
-            timeResult[j] = test3(data, i, newData);
-        }
-        writeInFile(txtNames[2], timeResult, LOOP_TIMES);
-
     }
     return 0;
 }
-
-// struct dynamicArrayLinear()
-// {   
-//     int count = 0;
-//     int *array = new int[START_SIZE + count*STEP + 1];
-//         for (int i = 0; i < N; i+= STEP){
-//             array[i] = data[i];
-//         }
-//         array[N] = newData;
-//         return array;
-//     }
-
-// };
-
-// int timer(int (&data)[START_SIZE + STEP*count], int numOfExperiment = 0){
-//     int newdata = 1;
-//     auto begin = std::chrono::steady_clock::now();  // начало отсчета
-//     if (numOfExperiment == 0){
-//         dynamicArrayLinear result = data;
-//         result = pushRight(result, newdata);
-//     }
-//     auto end = std::chrono::steady_clock::now();
-//     auto time_span = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);
-//     return time_span.count();
-// }
