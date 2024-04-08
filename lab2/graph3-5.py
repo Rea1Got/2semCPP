@@ -3,9 +3,8 @@ import numpy as np
 import matplotlib as mpl
 # import math
 
-max_ = 10000
-step = 10
-loop_times = 10
+max_ = 50000
+loop_times = 5
 
 files = ["3-5_firstTest.txt", "3-5_secondTest.txt", "3-5_thirdTest.txt"]
 
@@ -23,10 +22,15 @@ for k in range(3):
                 data.append(int(j))
     x[k] = [i for i in range(max_)]
     tmp[k] = data.copy()
-    for i in range(max_):
-        tmp[k][i] += tmp[k][i+10000] + tmp[k][i+20000] + tmp[k][i+30000] + tmp[k][i+40000]
-        tmp[k][i] /= 5
+    # for i in range(max_):
+    #     tmp[k][i] += tmp[k][i+10000] + tmp[k][i+20000] + tmp[k][i+30000] + tmp[k][i+40000]
+    #     tmp[k][i] /= 5
     print(len(x[k]), len(tmp[k]))
+    # for i in range(max_):
+    #     tmp[k][i] = 0
+    #     for j in range(loop_times):
+    #         tmp[k][i] += tmp[k][i + max_*j]
+    
     file.close()
     data.clear()
 
@@ -83,7 +87,7 @@ plt.legend()
 
 #######################
 sp = plt.subplot(312)
-ax2.plot(x[1], y[1], 'o-r', c='k', lw=0, mec='r', alpha=0.4, mew=0, ms=2, label = 'Усредненное значение времени')
+ax2.plot(x[1], y[1], 'o-r', c='k', lw=0, mec='r', alpha=0.6, mew=0, ms=4, label = 'Усредненное значение времени')
 ax2.plot(b[1], b[1]*a[1][0] + a[1][1], 'o-r', alpha=0.6, c='r', lw=1, mec='r', mew=0, ms=0)
 
 plt.xlabel('N, количество переменных')

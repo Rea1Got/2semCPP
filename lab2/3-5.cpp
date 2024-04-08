@@ -2,7 +2,7 @@
 #include <chrono>
 #include <fstream>
 
-#define END_SIZE 10000
+#define END_SIZE 50000
 #define STEP 100
 #define MULTIPLY 2
 #define LOOP_TIMES 5
@@ -141,10 +141,3 @@ int main(){
     }
     return 0;
 }
-
-    
-
-
-
-
-
