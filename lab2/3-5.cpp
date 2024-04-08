@@ -2,9 +2,10 @@
 #include <chrono>
 #include <fstream>
 
-#define END_SIZE 100000
+#define END_SIZE 10000
 #define STEP 10
 #define MULTIPLY 2
+#define LOOP_TIMES 5
 
 struct DynamicArray {
     int* data;
@@ -110,7 +111,7 @@ int* test3(DynamicArray& array, int step, int newData){
         if (array.size == array.sizeFilled){
             array = pushRightMultiply(array, MULTIPLY, newData);
             array.data[i] = newData;
-            std::cout << array.size << ' ';
+            // std::cout << array.size << ' ';
         } 
         array.data[i] = newData;
         array.sizeFilled++;
@@ -127,15 +128,16 @@ int main(){
     array.sizeFilled = 0;
 
     int newData = 1337;
-    // 1 way
-    writeInFile(txtNames[0], test1(array, newData), END_SIZE);
-    clear(array);
-    // 2 way
-    writeInFile(txtNames[1], test2(array, STEP, newData), END_SIZE);
-    clear(array);
-    // 3 way
-    writeInFile(txtNames[2], test3(array, MULTIPLY, newData), END_SIZE);
-    clear(array);
+    for (int i = 0; i < LOOP_TIMES; i++){
+        writeInFile(txtNames[0], test1(array, newData), END_SIZE);
+        clear(array);
+
+        writeInFile(txtNames[1], test2(array, STEP, newData), END_SIZE);
+        clear(array);
+
+        writeInFile(txtNames[2], test3(array, MULTIPLY, newData), END_SIZE);
+        clear(array);
+    }
     return 0;
 }
 
