@@ -3,14 +3,14 @@
 #include <fstream>
 
 #define END_SIZE 10000
-#define STEP 10
+#define STEP 100
 #define MULTIPLY 2
 #define LOOP_TIMES 5
 
 struct DynamicArray {
-    int* data;
-    int sizeFilled;
-    int size;
+    int* data = nullptr;
+    int sizeFilled = 0;
+    int size = 0;
 };
 
 void clear(DynamicArray& array){
@@ -92,12 +92,13 @@ int* test2(DynamicArray& array, int step, int newData){
         if (array.size == array.sizeFilled){
             auto ts = timerStart();
             array = pushRightStep(array, step, newData);
-            //std::cout << array.size << ' '; 
+            result[i] = timerStop(ts);
+        } else {
+            auto ts = timerStart();
+            array.data[i] = newData;
             result[i] = timerStop(ts);
         }
-        array.data[i] = newData;
         array.sizeFilled++;
-        
     }
     return result;
 }
@@ -141,11 +142,7 @@ int main(){
     return 0;
 }
 
-
-
-;
     
-
 
 
 
