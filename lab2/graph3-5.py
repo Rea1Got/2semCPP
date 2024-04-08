@@ -4,7 +4,7 @@ import matplotlib as mpl
 # import math
 
 max_ = 50000
-loop_times = 5
+loop_times = 3
 
 files = ["3-5_firstTest.txt", "3-5_secondTest.txt", "3-5_thirdTest.txt"]
 
@@ -25,7 +25,7 @@ for k in range(3):
     # for i in range(max_):
     #     tmp[k][i] += tmp[k][i+10000] + tmp[k][i+20000] + tmp[k][i+30000] + tmp[k][i+40000]
     #     tmp[k][i] /= 5
-    print(len(x[k]), len(tmp[k]))
+    #print(len(x[k]), len(tmp[k]))
     # for i in range(max_):
     #     tmp[k][i] = 0
     #     for j in range(loop_times):
@@ -63,7 +63,7 @@ y = [[],[],[]]
 for i in range(3):
     for j in range(max_):
         y[i].append(tmp[i][j])
-    print(len(x[i]), len(y[i]))
+    #print(len(x[i]), len(y[i]))
     a.append(np.polyfit(x[i], y[i], 1))
 b = [np.linspace(0, max_, 1000)]*3
 

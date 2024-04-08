@@ -5,7 +5,7 @@
 #define END_SIZE 50000
 #define STEP 100
 #define MULTIPLY 2
-#define LOOP_TIMES 5
+#define LOOP_TIMES 3
 
 struct DynamicArray {
     int* data = nullptr;
@@ -122,6 +122,7 @@ int* test3(DynamicArray& array, int step, int newData){
 }
 
 int main(){
+    setlocale(LC_ALL, "Russian");
     std::string txtNames[] = { "3-5_firstTest.txt", "3-5_secondTest.txt", "3-5_thirdTest.txt" };
     
     DynamicArray array;
@@ -139,5 +140,6 @@ int main(){
         writeInFile(txtNames[2], test3(array, MULTIPLY, newData), END_SIZE);
         clear(array);
     }
+    system("python graph3-5.py");
     return 0;
 }
