@@ -1,32 +1,22 @@
 #include <iostream>
-#include <fstream>
 #include <chrono>
-#include <random>
-#include <string>
+#include <fstream>
 
-#define START_SIZE 10000
-#define END_SIZE 1000000
-#define STEP 10000
-#define LOOP_TIMES 100
-#define NEW_ELEMENT 1337
-#define NUM_OF_NEW_ELEMENTS 100
+#define END_SIZE 10000
+#define STEP 10
+#define MULTIPLY 2
 
-int* copyArray(int data[], int sizeData, int result[]) {
-    for (int i = 0; i < sizeData; i++) {
-        result[i] = data[i];
-    }
-    return result;
-}
+struct DynamicArray {
+    int* data;
+    int sizeFilled;
+    int size;
+};
 
-int* biggerArray(int data[], int sizeData, int quantityOfNewElements){
-    int *result = new int[sizeData + quantityOfNewElements];
-    return copyArray(data, sizeData, result);
-}
-
-void fillNewElements(int result[], int sizeData, int quantityOfNewElements){
-    for(int i = sizeData; i < sizeData + quantityOfNewElements; i++){
-        result[i] = NEW_ELEMENT;
-    }
+void clear(DynamicArray& array){
+    delete[] array.data;
+    array.size = 0;
+    array.sizeFilled = 0;
+    array.data = nullptr;
 }
 
 auto timerStart() {
@@ -39,16 +29,7 @@ int timerStop(auto begin) {
     return static_cast<int>(time_span.count());
 }
 
-auto test1(int data[], int size, int quantityOfNewElements) {
-    auto ts = timerStart();
-    int* newArray = biggerArray(data, size, quantityOfNewElements);
-    fillNewElements(newArray, size, quantityOfNewElements);
-    int time = timerStop(ts);
-    delete[] newArray;
-    return time;
-}
-
-void writeInFile(std::string filename, int *result, int size){
+void writeInFile(const std::string& filename, int* result, int size){
     std::ofstream fout(filename, std::ios::app);
     for (int i = 0; i < size; i++){
         fout << result[i] << ' ';
@@ -57,30 +38,116 @@ void writeInFile(std::string filename, int *result, int size){
     fout.close();
 }
 
+DynamicArray pushRight(const DynamicArray& data, int newData) {
+    DynamicArray result;
+    result.size = data.size + 1;
+    result.sizeFilled = data.sizeFilled + 1;
+    result.data = new int[result.size];
+    for (int i = 0; i < data.sizeFilled; i++) {
+        result.data[i] = data.data[i];
+    }
+//    result.data[data.sizeFilled] = newData;
+    return result;
+}
+
+// DynamicArray pushRightStep(DynamicArray data, int step, int newData) {
+//     DynamicArray result;
+//     result.size = data.size + step;
+//     result.sizeFilled = data.sizeFilled;
+//     result.data = new int[result.size];
+//     for (int i = 0; i < result.sizeFilled; i++) {
+//         result.data[i] = data.data[i];
+//     }
+//     return result;
+// }
+
+// DynamicArray pushRightMultiply(const DynamicArray& data, int multiply, int newData) {
+//     DynamicArray result;
+//     result.size = data.size * multiply;
+//     result.sizeFilled = data.sizeFilled;
+//     result.data = new int[result.size];
+//     for (int i = 0; i < data.sizeFilled; i++) {
+//         result.data[i] = data.data[i];
+//     }
+//     return result;
+// }
+
+int* test1(DynamicArray& array, int newData){
+    int *result = new int[END_SIZE];
+    for (int i = 0; i < END_SIZE; i++){
+        auto ts = timerStart();
+        if (array.size == array.sizeFilled){
+            array = pushRight(array, newData);
+        }
+        array.data[i] = newData;
+        result[i] = timerStop(ts);
+    }
+    return result;
+}
+
+// int* test2(DynamicArray& array, int step, int newData){
+//     int *result = new int[END_SIZE];
+//     for (int i = 0; i < END_SIZE; i++){
+//         if (array.size == array.sizeFilled){
+//             auto ts = timerStart();
+//             array = pushRightStep(array, step, newData);
+//             //std::cout << array.size << ' '; 
+//             result[i] = timerStop(ts);
+//         } 
+//         array.data[i] = newData;
+//         array.sizeFilled++;
+        
+//     }
+//     return result;
+// }
+
+// int* test3(DynamicArray& array, int step, int newData){
+//     int *result = new int[END_SIZE];
+//     result.size = 1;
+//     result.sizeFilled = 1;
+//     // result.data[0] = 1337;
+//     for (int i = 0; i < END_SIZE; i++){
+//         auto ts = timerStart();
+//         if (array.size == array.sizeFilled){
+//             array = pushRightMultiply(array, STEP, newData);
+//             array.data[i] = newData;
+//             std::cout << array.size << ' ';
+//         } 
+//         array.data[i] = newData;
+//         array.sizeFilled++;
+//         result[i] = timerStop(ts);
+
+//     }
+//     return result;
+// }
+
 int main(){
     std::string txtNames[] = { "3-5_firstTest.txt", "3-5_secondTest.txt", "3-5_thirdTest.txt" };
+    
+    DynamicArray array;
+    array.size = 0;
+    array.sizeFilled = 0;
 
-    for (int k = 0; k < 3; k++){
-        for (int i = START_SIZE; i < END_SIZE; i += STEP){
-            int *data = new int[i]();
-            int timeResult[LOOP_TIMES] = {0};
-            if (k % 3 == 0){
-                for (int j = 0; j < LOOP_TIMES; j++){
-                    timeResult[j] = test1(data, i, 1);
-                }
-            } else if (k % 3 == 1){
-                for (int j = 0; j < LOOP_TIMES; j++){
-                    timeResult[j] = test1(data, i, NUM_OF_NEW_ELEMENTS);
-                }  
-            } else {
-                for (int j = 0; j < LOOP_TIMES; j++){
-                    timeResult[j] = test1(data, i, i);
-                }  
-            }
-            writeInFile(txtNames[k], timeResult, LOOP_TIMES);
-
-            delete[] data;
-        }
-    }
+    int newData = 1337;
+    // 1 way
+    writeInFile(txtNames[0], test1(array, newData), END_SIZE);
+    clear(array);
+    // 2 way
+    // writeInFile(txtNames[1], test2(array, STEP, newData), END_SIZE);
+    // clear(array);
+    // 3 way
+    // writeInFile(txtNames[2], test3(array, MULTIPLY, newData), END_SIZE);
+    // clear(array);
     return 0;
 }
+
+
+
+;
+    
+
+
+
+
+
+
