@@ -3,8 +3,8 @@ import numpy as np
 import matplotlib as mpl
 # import math
 
-max_ = 50000
-loop_times = 3
+max_ = 10000
+loop_times = 4
 
 files = ["3-5_firstTest.txt", "3-5_secondTest.txt", "3-5_thirdTest.txt"]
 
@@ -60,12 +60,19 @@ for k in range(3):
 
 a = []
 y = [[],[],[]]
+x_fit = []
+y_fit = []
 for i in range(3):
     for j in range(max_):
         y[i].append(tmp[i][j])
-    #print(len(x[i]), len(y[i]))
-    a.append(np.polyfit(x[i], y[i], 1))
-b = [np.linspace(0, max_, 1000)]*3
+        y[i][j] /= 1000000
+
+    a.append(np.polyfit(x[i], y[i], 3))
+    p = np.poly1d(a[i])
+    x_fit.append(np.linspace(min(x[i]), max(x[i]), 500))
+    y_fit.append(p(x_fit))
+
+
 
 
 
@@ -75,37 +82,21 @@ fig = plt.figure(figsize=(12, 12))
 ax1 = fig.add_subplot(311)
 ax2 = fig.add_subplot(312)
 ax3 = fig.add_subplot(313)
+ax = []
+ax.append(ax1)
+ax.append(ax2)
+ax.append(ax3)
 ########################
-sp = plt.subplot(311)
-ax1.plot(x[0], y[0], 'o-r', c='k', lw=0, alpha = 0.4, mec='r', mew=0, ms=2, label = 'Усредненное значение времени')
-ax1.plot(b[0], b[0]*a[0][0] + a[0][1], 'o-r', alpha=0.6, c='r', lw=1, mec='r', mew=0, ms=0)
-plt.xlabel('N, количество элементов')
-plt.ylabel(r'$t, 10^{-6} с$')
-plt.title('Рис. 1(a) Добавление одного элемента', loc='left')
-plt.grid(True)
-plt.legend()
-
-#######################
-sp = plt.subplot(312)
-ax2.plot(x[1], y[1], 'o-r', c='k', lw=0, mec='r', alpha=0.6, mew=0, ms=4, label = 'Усредненное значение времени')
-ax2.plot(b[1], b[1]*a[1][0] + a[1][1], 'o-r', alpha=0.6, c='r', lw=1, mec='r', mew=0, ms=0)
-
-plt.xlabel('N, количество переменных')
-plt.ylabel(r'$t, 10^{-6} с$')
-plt.title('Рис. 1(б) Добавление фиксированного числа элементов', loc='left')
-plt.grid(True)
-plt.legend()
-
-#######################
-sp = plt.subplot(313)
-ax3.plot(x[2], y[2], 'o-r', c='k', lw=0, mec='r', alpha=0.4, mew=0, ms=2, label = 'Усредненное значение времени')
-ax3.plot(b[2], b[2]*a[2][0] + a[2][1], 'o-r', alpha=0.6, c='r', lw=1, mec='r', mew=0, ms=0)
-
-plt.xlabel('N, количество переменных')
-plt.ylabel(r'$t, 10^{-6} с$')
-plt.title('Рис. 1(в) создание массива удвоенного размера', loc='left')
-plt.grid(True)
-plt.legend()
+for i in range(3):
+    sp = plt.subplot(310 + i + 1)
+    ax[i].set_xscale('log')
+    ax[i].plot(x[i], y[i], 'o-r', c='k', lw=0, alpha = 0.4, mec='r', mew=0, ms=2, label = 'Усредненное значение времени')
+    ax[i].plot(x_fit[i], y_fit[0][0], 'o-r', alpha=0.6, c='r', lw=1, mec='r', mew=0, ms=0)
+    plt.xlabel('N, количество элементов')
+    plt.ylabel(r'$t, мс$')
+    plt.title('Рис. 1(a) Добавление одного элемента', loc='left')
+    plt.grid(True)
+    plt.legend()
 
 ########################################################################## 
 
