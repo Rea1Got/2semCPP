@@ -3,8 +3,11 @@ import numpy as np
 import matplotlib as mpl
 # import math
 
-max_ = 10000
-loop_times = 4
+max_, loop_times = 0, 0
+with open ('D:\\Study\\Programming\\2 sem\\2semestry_cpp\\lab2\\config.txt', 'r') as file:
+    file = list(map(int, file))
+    max_ = int(file[0])
+    loop_times = int(file[1])
 
 files = ["3-5_firstTest.txt", "3-5_secondTest.txt", "3-5_thirdTest.txt"]
 
@@ -12,7 +15,6 @@ files = ["3-5_firstTest.txt", "3-5_secondTest.txt", "3-5_thirdTest.txt"]
 # Приводим данные к нужному виду
 x = [[],[],[]]
 tmp = [[],[],[]]
-
 for k in range(3):
     data = []
     with open('D:\\Study\\Programming\\2 sem\\2semestry_cpp\\lab2\\' + files[k], 'r') as file:
@@ -22,40 +24,9 @@ for k in range(3):
                 data.append(int(j))
     x[k] = [i for i in range(max_)]
     tmp[k] = data.copy()
-    # for i in range(max_):
-    #     tmp[k][i] += tmp[k][i+10000] + tmp[k][i+20000] + tmp[k][i+30000] + tmp[k][i+40000]
-    #     tmp[k][i] /= 5
-    #print(len(x[k]), len(tmp[k]))
-    # for i in range(max_):
-    #     tmp[k][i] = 0
-    #     for j in range(loop_times):
-    #         tmp[k][i] += tmp[k][i + max_*j]
     
     file.close()
     data.clear()
-
-    
-# for k in range(3):
-#     data = []
-#     with open('D:\\Study\\Programming\\2 sem\\2semestry_cpp\\lab2\\' + files[k], 'r') as file:
-#         for i in file:
-#             data.append(i.split())
-
-#     for i in range(len(data)):
-#         for j in range(len(data[0])):
-#             data[i][j] = int(data[i][j])
-
-#     x[k] = [i for i in range(min_, max_, step)]
-#     y[k] = [0]*((max_ - min_)//step)
-
-#     for i in range(len(data)):
-#         y[k][i] += sum(data[i])
-#     for i in range(len(y[k])):
-#         y[k][i] /= loop_times
-#         y[k][i] /= 1000
-#     file.close()
-#     data.clear()
-
 ##########################################################################
 
 a = []
@@ -71,10 +42,6 @@ for i in range(3):
     p = np.poly1d(a[i])
     x_fit.append(np.linspace(min(x[i]), max(x[i]), 500))
     y_fit.append(p(x_fit))
-
-
-
-
 
 ##########################################################################
 

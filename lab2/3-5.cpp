@@ -1,11 +1,12 @@
 #include <iostream>
 #include <chrono>
 #include <fstream>
+#include <istream>
 
-#define END_SIZE 50000
+#define END_SIZE 10000
+#define LOOP_TIMES 4  
 #define STEP 100
 #define MULTIPLY 2
-#define LOOP_TIMES 3
 
 struct DynamicArray {
     int* data = nullptr;
@@ -121,23 +122,46 @@ int* test3(DynamicArray& array, int step, int newData){
     return result;
 }
 
+// int readConfig(){
+//     int config[4] = {0};
+//     std::string _config[4];
+//     std::ifstream MyReadFile("config.txt");
+//     int i = 0;
+//     while (std::getline(MyReadFile, _config[i])) {
+//         config[i] = std::__cxx11::stoi(_config[i]);
+//         i++;
+//     }
+//     MyReadFile.close();
+//     return config;
+// }
+
 int main(){
     setlocale(LC_ALL, "Russian");
     std::string txtNames[] = { "3-5_firstTest.txt", "3-5_secondTest.txt", "3-5_thirdTest.txt" };
-    
+
+    int config[4] = {0};
+    std::string _config[4];
+    std::ifstream MyReadFile("config.txt");
+    int i = 0;
+    while (std::getline(MyReadFile, _config[i])) {
+        config[i] = std::__cxx11::stoi(_config[i]);
+        i++;
+    }
+    MyReadFile.close();
+
     DynamicArray array;
     array.size = 0;
     array.sizeFilled = 0;
 
     int newData = 1337;
-    for (int i = 0; i < LOOP_TIMES; i++){
-        writeInFile(txtNames[0], test1(array, newData), END_SIZE);
+    for (int i = 0; i < config[1]; i++){
+        writeInFile(txtNames[0], test1(array, newData), config[0]);
         clear(array);
 
-        writeInFile(txtNames[1], test2(array, STEP, newData), END_SIZE);
+        writeInFile(txtNames[1], test2(array, config[2], newData), config[0]);
         clear(array);
 
-        writeInFile(txtNames[2], test3(array, MULTIPLY, newData), END_SIZE);
+        writeInFile(txtNames[2], test3(array, config[3], newData), config[0]);
         clear(array);
     }
     system("python graph3-5.py");
