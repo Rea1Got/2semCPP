@@ -1,44 +1,36 @@
-#include <vector>
-#include <stdexcept>
+#include "queue.h"
 
+// Constructor
+Queue::Queue(int size) : head(0), tail(0), capacity(size) {
+    data.resize(size);
+}
 
-struct Queue {
-    std::vector<int> data; 
-    int head;              
-    int tail;              
-    int capacity;           
+bool Queue::isEmpty() const {
+    return head == tail;
+}
 
-    // constructor
-    Queue(int size) : head(0), tail(0), capacity(size) {
-        data.resize(size);
+bool Queue::isFull() const {
+    return (tail + 1) % capacity == head;
+}
+
+void Queue::enqueue(int value) {
+    if (isFull()) {
+        throw std::overflow_error("Queue is full!");
     }
+    data[tail] = value;
+    tail = (tail + 1) % capacity; 
+}
 
-    bool isEmpty() const {
-        return head == tail;
+int Queue::dequeue() {
+    if (isEmpty()) {
+        throw std::underflow_error("Queue is empty!");
     }
+    int value = data[head];
+    head = (head + 1) % capacity;
+    return value;
+}
 
-    bool isFull() const {
-        return (tail + 1) % capacity == head;
-    }
+int Queue::size() const {
+    return (tail - head + capacity) % capacity;
+}
 
-    void enqueue(int value) {
-        if (isFull()) {
-            throw std::overflow_error("Очередь полна!");
-        }
-        data[tail] = value;
-        tail = (tail + 1) % capacity; 
-    }
-
-    int dequeue() {
-        if (isEmpty()) {
-            throw std::underflow_error("Очередь пуста!");
-        }
-        int value = data[head];
-        head = (head + 1) % capacity;
-        return value;
-    }
-
-    int size() const {
-        return (tail - head + capacity) % capacity;
-    }
-};
