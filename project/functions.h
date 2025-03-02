@@ -6,6 +6,9 @@
 // list of functions
 std::vector<std::vector<int>> generateGraph(int, int, int);
 void printGraph(const std::vector<std::vector<int>>&);
+std::vector<std::vector<std::pair<int, int>>> adjacencyList(std::vector<std::vector<int>> graph_matrix);
+void printAdjacencyList(std::vector<std::vector<std::pair<int, int>>> adjacency_list);
+
 
 
 #endif 
