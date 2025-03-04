@@ -6,21 +6,21 @@
 
 #include <vector>
 #include "functions.h"
-#include "adjacency_color.h"
+#include "adjacency_list_colored.h"
 
 #define SEED 3
-#define NUMBER_OF_EDGES 25
+#define NUMBER_OF_VERTICES 25
 #define WEIGHT_MAX 2 
 
 
 int main() {
-  int numberOfEdges = NUMBER_OF_EDGES;
+  int numberOfEdges = NUMBER_OF_VERTICES;
   int weightMax = WEIGHT_MAX;
-  std::vector<std::vector<int>> graph = generateGraph(numberOfEdges, weightMax, SEED);
+  std::vector<std::vector<int>> graph = symmetricalGraphGenerate(numberOfEdges, weightMax, SEED);
   printGraph(graph);
-  std::vector<std::vector<std::pair<int, int>>> adjacency_list = adjacencyList(graph);
-  printAdjacencyList(adjacency_list);
-  AdjacencyColor adjacency_result = breadthFirst(adjacency_list, 1);
+  std::vector<std::vector<std::pair<int, int>>> adjacency_list_graph = adjacencyListGraph(graph);
+  printAdjacencyList(adjacency_list_graph);
+  AdjacencyListColored adjacency_result = breadthFirst(adjacency_list_graph, 1);
   adjacency_result.print();
   return 0;
 }

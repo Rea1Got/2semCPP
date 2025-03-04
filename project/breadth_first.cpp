@@ -1,30 +1,31 @@
 #include "queue.h"
-#include "adjacency_color.h"
+#include "adjacency_list_colored.h"
 
 #define WHITE 0
 #define GRAY 1
 #define BLACK 2
 #define QUEUE_SIZE 50
-AdjacencyColor breadthFirst(std::vector<std::vector<std::pair<int, int>>> adjacencyList, int startVerticy){
-  AdjacencyColor adjacencyColor(adjacencyList);
-  adjacencyColor.color[startVerticy] = GRAY;
+
+AdjacencyListColored breadthFirst(std::vector<std::vector<std::pair<int, int>>> adjacencyListGraph, int start_vertex){
+  AdjacencyListColored adjacencyColor(adjacencyListGraph);
+  adjacencyColor.color[start_vertex] = GRAY;
   Queue queue(QUEUE_SIZE);
-  queue.enqueue(startVerticy);
-  int currentVerticy = startVerticy;  // bruh
-  std::vector<std::pair<int, int>> currentVerticyAdj = adjacencyList[currentVerticy];
+  queue.enqueue(start_vertex);
+  int current_vertex = start_vertex;  // bruh
+  std::vector<std::pair<int, int>> currentVertexAdj = adjacencyListGraph[current_vertex];
   while(queue.size() != 0){
-    currentVerticy = queue.dequeue();
-    currentVerticyAdj = adjacencyList[currentVerticy];
-    for (int i = 0; i < currentVerticyAdj.size(); i++){
-      int adjVerticy = currentVerticyAdj[i].first;
-      if(adjacencyColor.color[adjVerticy] == WHITE){
-        adjacencyColor.color[adjVerticy] = GRAY;
-        adjacencyColor.distance[adjVerticy] = adjacencyColor.distance[currentVerticy] + 1;
-        adjacencyColor.previousVerticy[adjVerticy] = currentVerticy;
-        queue.enqueue(adjVerticy);
+    current_vertex = queue.dequeue();
+    currentVertexAdj = adjacencyListGraph[current_vertex];
+    for (int i = 0; i < currentVertexAdj.size(); i++){
+      int adj_vertex = currentVertexAdj[i].first;
+      if(adjacencyColor.color[adj_vertex] == WHITE){
+        adjacencyColor.color[adj_vertex] = GRAY;
+        adjacencyColor.distance[adj_vertex] = adjacencyColor.distance[current_vertex] + 1;
+        adjacencyColor.previousVertex[adj_vertex] = current_vertex;
+        queue.enqueue(adj_vertex);
       }
     }
-    adjacencyColor.color[currentVerticy] = BLACK;
+    adjacencyColor.color[current_vertex] = BLACK;
   }
   return adjacencyColor;
 }
