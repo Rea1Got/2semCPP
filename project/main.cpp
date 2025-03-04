@@ -6,11 +6,11 @@
 
 #include <vector>
 #include "functions.h"
+#include "adjacency_color.h"
 
-
-#define SEED 10
+#define SEED 1
 #define NUMBER_OF_EDGES 5
-#define WEIGHT_MAX 4
+#define WEIGHT_MAX 2 
 
 
 int main() {
@@ -18,6 +18,9 @@ int main() {
   int weightMax = WEIGHT_MAX;
   std::vector<std::vector<int>> graph = generateGraph(numberOfEdges, weightMax, SEED);
   printGraph(graph);
-  printAdjacencyList(adjacencyList(graph));
+  std::vector<std::vector<std::pair<int, int>>> adjacency_list = adjacencyList(graph);
+  printAdjacencyList(adjacency_list);
+  AdjacencyColor adjacency_result = breadthFirst(adjacency_list, 0);
+  adjacency_result.print();
   return 0;
 }
