@@ -7,7 +7,7 @@
 #define QUEUE_SIZE 50
 AdjacencyColor breadthFirst(std::vector<std::vector<std::pair<int, int>>> adjacencyList, int startVerticy){
   AdjacencyColor adjacencyColor(adjacencyList);
-  adjacencyColor.colorGray(startVerticy);
+  adjacencyColor.color[startVerticy] = GRAY;
   Queue queue(QUEUE_SIZE);
   queue.enqueue(startVerticy);
   int currentVerticy = startVerticy;  // bruh
@@ -19,9 +19,9 @@ AdjacencyColor breadthFirst(std::vector<std::vector<std::pair<int, int>>> adjace
       int adjVerticy = currentVerticyAdj[i].first;
       if(adjacencyColor.color[adjVerticy] == WHITE){
         adjacencyColor.color[adjVerticy] = GRAY;
-        adjacencyColor.distance[adjVerticy]++;
+        adjacencyColor.distance[adjVerticy] = adjacencyColor.distance[currentVerticy] + 1;
         adjacencyColor.previousVerticy[adjVerticy] = currentVerticy;
-        queue.enqueue(i);
+        queue.enqueue(adjVerticy);
       }
     }
     adjacencyColor.color[currentVerticy] = BLACK;

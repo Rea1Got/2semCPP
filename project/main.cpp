@@ -8,8 +8,8 @@
 #include "functions.h"
 #include "adjacency_color.h"
 
-#define SEED 1
-#define NUMBER_OF_EDGES 5
+#define SEED 3
+#define NUMBER_OF_EDGES 25
 #define WEIGHT_MAX 2 
 
 
@@ -20,7 +20,7 @@ int main() {
   printGraph(graph);
   std::vector<std::vector<std::pair<int, int>>> adjacency_list = adjacencyList(graph);
   printAdjacencyList(adjacency_list);
-  AdjacencyColor adjacency_result = breadthFirst(adjacency_list, 0);
+  AdjacencyColor adjacency_result = breadthFirst(adjacency_list, 1);
   adjacency_result.print();
   return 0;
 }
