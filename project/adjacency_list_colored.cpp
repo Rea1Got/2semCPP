@@ -10,19 +10,15 @@ AdjacencyListColored::AdjacencyListColored(std::vector<std::vector<std::pair<int
 }
 
 void AdjacencyListColored::print(){
-  std::cout << "color: ";
-  for (int i = 0; i < color.size(); i++){
-      std::cout << color[i] << " ";
-  }
-  std::cout << std::endl;
-  
-  std::cout << "previousvertex: ";
+  std::cout << "Breadth first algorithm is finished!" << std::endl;
+
+  std::cout << "Parential vertex: ";
   for (int i = 0; i < previousVertex.size(); i++){
       std::cout << i << ": " << previousVertex[i] << "; ";
   }
   std::cout << std::endl;
 
-  std::cout << "distance: ";
+  std::cout << "Distance from the starting vertex: ";
   for (int i = 0; i < distance.size(); i++){
       std::cout << i << ": " << distance[i] << "; ";
   }

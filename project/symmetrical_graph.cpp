@@ -32,3 +32,13 @@ void printGraph(const std::vector<std::vector<int>>& arr) {
   }
   std::cout << "Graph generated!" << std::endl;
 }
+
+std::vector<std::vector<int>> symmetricalGraphWrite(int number_of_vertices){
+  std::vector<std::vector<int>> symmetricalGraph (number_of_vertices, std::vector<int>(number_of_vertices));
+  for (int i = 0; i < number_of_vertices; i++){
+    for (int j = 0; j < number_of_vertices; j++){
+      std::cin >> symmetricalGraph[i][j];
+    }
+  }
+  return symmetricalGraph;
+}
