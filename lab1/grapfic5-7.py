@@ -4,7 +4,7 @@ import matplotlib as mpl
 # import math
 
 min_ = 100
-max_ = 50000
+max_ = 50100
 step = 1000
 loop_times = 1000
 
@@ -13,7 +13,7 @@ loop_times = 1000
 
 # Нужно избавиться от копипаста
 data = []
-with open('D:\\Study\\Programming\\2 sem\\2semestry_cpp\\lab1\\outputN2.txt', 'r') as file:
+with open('outputN2.txt', 'r') as file:
     for i in file:
         data.append(i.split())
 
@@ -33,7 +33,7 @@ for i in range(len(y1)):
 file.close()
 data.clear()
 
-with open('D:\\Study\\Programming\\2 sem\\2semestry_cpp\\lab1\\outputLinear.txt', 'r') as file:
+with open('outputLinear.txt', 'r') as file:
     for i in file:
         data.append(i.split())
 
@@ -94,8 +94,8 @@ plt.show()
 
 print('Clear files? y/n')
 if (input().lower() == 'y'):
-    with open('D:\\Study\\Programming\\2 sem\\2semestry_cpp\\lab1\\outputN2.txt', 'w') as file:
+    with open('outputN2.txt', 'w') as file:
         file = ''
-    with open('D:\\Study\\Programming\\2 sem\\2semestry_cpp\\lab1\\outputLinear.txt', 'w') as file:
+    with open('outputLinear.txt', 'w') as file:
         file = ''
 

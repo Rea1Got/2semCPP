@@ -5,9 +5,9 @@
 
 #define MIN 100
 #define MAX 500000
-#define STEP 100
-#define LOOP_TIMES 10000
-#define SEED 1
+#define STEP 500
+#define LOOP_TIMES 200
+#define SEED 2
 
 void printArray(int (&arr)[MAX]) {
     for (int i = 0; i < MAX; i++){
