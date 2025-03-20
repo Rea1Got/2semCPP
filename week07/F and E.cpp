@@ -33,7 +33,7 @@ void destroy_list(Node*& head_ref){
 void print_list(Node* head_ref) {
     if(head_ref != nullptr) {;
         Node* current = head_ref;
-        while(current -> next != nullptr) {
+        while(current != nullptr) {
             std::cout << current -> key << ' ';
             current = current -> next;
         }
@@ -42,17 +42,23 @@ void print_list(Node* head_ref) {
     std::cout << std::endl;
 }
 
-using std::cout;
-using std::endl;
+Node* find(Node*& head_ref, int key) {
+    Node* current = head_ref;
+    while ((current != nullptr) and (current->key != key)){
+        current = current->next;
+    }
+    return current;
+}
 
 int main() {
-  Node* HEAD = nullptr;
+  Node* HEAD = nullptr, *current = nullptr;
   push_back(HEAD, 0);
   push_back(HEAD, 1);
   push_back(HEAD, 2);
-  destroy_list(HEAD);
-  if (HEAD == nullptr) {
-    cout << "OK" << endl;
+  current = find(HEAD, 2);
+  if (current->key == 2) {
+      std::cout << "OK" << std::endl;
   }
+  destroy_list(HEAD);
   return 0;
 }
