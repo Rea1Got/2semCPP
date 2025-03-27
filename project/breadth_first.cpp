@@ -9,7 +9,8 @@
 AdjacencyListColored breadthFirst(std::vector<std::vector<std::pair<int, int>>> adjacencyListGraph, int start_vertex){
   AdjacencyListColored adjacencyColor(adjacencyListGraph);
   adjacencyColor.color[start_vertex] = GRAY;
-  Queue queue(QUEUE_SIZE);
+  adjacencyColor.distance[start_vertex] = 0;
+  Queue queue(adjacencyListGraph.size());
   queue.enqueue(start_vertex);
   int current_vertex = start_vertex;  // bruh
   std::vector<std::pair<int, int>> currentVertexAdj = adjacencyListGraph[current_vertex];

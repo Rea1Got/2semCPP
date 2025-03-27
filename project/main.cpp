@@ -9,10 +9,6 @@
 #include "functions.h"
 #include "adjacency_list_colored.h"
 
-// #define SEED 1
-// #define NUMBER_OF_VERTICES 50
-// #define WEIGHT_MAX 2 
-
 
 int main() {
   int number_of_vertices, user_answer = 0;

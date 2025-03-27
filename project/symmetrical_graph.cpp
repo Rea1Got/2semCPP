@@ -8,8 +8,7 @@ std::vector<std::vector<int>> symmetricalGraphGenerate(int number_of_vertices, i
 
   for (int i = 0; i < number_of_vertices; ++i) {
     for (int j = i; j < number_of_vertices; ++j) {
-        if (i != j)
-        {
+        if (i != j){
           int randValue = std::rand() % weight_max; // generate weight of the edges(0; upToNumber)
           symmetrical_graph[i][j] = randValue; 
           symmetrical_graph[j][i] = randValue;
@@ -23,10 +22,10 @@ std::vector<std::vector<int>> symmetricalGraphGenerate(int number_of_vertices, i
   return symmetrical_graph;
 }
 
-void printGraph(const std::vector<std::vector<int>>& arr) {
-  for (const auto& row : arr) {
-    for (int value : row) {
-      std::cout << value << " ";
+void printGraph(const std::vector<std::vector<int>>& arr){
+  for (size_t i = 0; i < arr.size(); i++) { 
+    for (size_t j = 0; j < arr[i].size(); j++) { 
+      std::cout << arr[i][j] << " ";
     }
     std::cout << std::endl;
   }

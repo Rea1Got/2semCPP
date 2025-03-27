@@ -15,17 +15,17 @@ bool Queue::isFull() const {
 
 void Queue::enqueue(int value) {
     if (isFull()) {
-        throw std::overflow_error("Queue is full!");
+        throw std::overflow_error("Error! Queue is full.");
     }
-    data[tail] = value;
+    data.array[tail] = value;
     tail = (tail + 1) % capacity; 
 }
 
 int Queue::dequeue() {
     if (isEmpty()) {
-        throw std::underflow_error("Queue is empty!");
+        throw std::underflow_error("Error! Queue is empty.");
     }
-    int value = data[head];
+    int value = data.array[head];
     head = (head + 1) % capacity;
     return value;
 }

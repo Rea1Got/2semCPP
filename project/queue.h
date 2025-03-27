@@ -1,11 +1,11 @@
 #ifndef QUEUE_H 
 #define QUEUE_H
 
-#include <vector>
 #include <stdexcept>
+#include "dynamic_array.h"
 
 struct Queue {
-    std::vector<int> data; 
+    DynamicArray data; 
     int head;              
     int tail;              
     int capacity;           
