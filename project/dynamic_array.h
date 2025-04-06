@@ -7,9 +7,10 @@
 struct DynamicArray{
   int size = 0;
   int capacity = INIT_CAPACITY;
-  int* array = new int[INIT_CAPACITY];
+  int* array; 
 
-  DynamicArray(int value = 0);
+  DynamicArray();
+  DynamicArray(int initialSize, int value);
   int get(int index);
   int getSize();
   int getCapacity();

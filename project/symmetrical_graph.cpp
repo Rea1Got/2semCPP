@@ -1,20 +1,22 @@
 #include <iostream>
-#include <vector>
+#include "dynamic_array.h"
 
-
-std::vector<std::vector<int>> symmetricalGraphGenerate(int number_of_vertices, int weight_max, int seed){
+DynamicArray* symmetricalGraphGenerate(int number_of_vertices, int weight_max, int seed){
   std::srand(seed); // init random 
-  std::vector<std::vector<int>> symmetrical_graph(number_of_vertices, std::vector<int>(number_of_vertices));
+  DynamicArray* symmetrical_graph = new DynamicArray[number_of_vertices];
+  for (int i = 0; i < number_of_vertices; i++){
+    symmetrical_graph[i] = DynamicArray(number_of_vertices, 0);
+  }
 
   for (int i = 0; i < number_of_vertices; ++i) {
     for (int j = i; j < number_of_vertices; ++j) {
         if (i != j){
           int randValue = std::rand() % weight_max; // generate weight of the edges(0; upToNumber)
-          symmetrical_graph[i][j] = randValue; 
-          symmetrical_graph[j][i] = randValue;
+          symmetrical_graph[i].array[j] = randValue; 
+          symmetrical_graph[j].array[i] = randValue;
         } 
         else {
-          symmetrical_graph[i][j] = 0;
+          symmetrical_graph[i].array[i] = 0;
         }
     }
   }
@@ -22,21 +24,23 @@ std::vector<std::vector<int>> symmetricalGraphGenerate(int number_of_vertices, i
   return symmetrical_graph;
 }
 
-void printGraph(const std::vector<std::vector<int>>& arr){
-  for (size_t i = 0; i < arr.size(); i++) { 
-    for (size_t j = 0; j < arr[i].size(); j++) { 
-      std::cout << arr[i][j] << " ";
+void printGraph(DynamicArray* arr){
+  for (int i = 0; i < arr->size; i++) { 
+    for (int j = 0; j < arr[i].size; j++) { 
+      std::cout << arr[i].array[j] << " ";
     }
     std::cout << std::endl;
   }
   std::cout << "Graph generated!" << std::endl;
 }
 
-std::vector<std::vector<int>> symmetricalGraphWrite(int number_of_vertices){
-  std::vector<std::vector<int>> symmetricalGraph (number_of_vertices, std::vector<int>(number_of_vertices));
+DynamicArray* symmetricalGraphWrite(int number_of_vertices){
+  DynamicArray* symmetricalGraph = new DynamicArray[number_of_vertices];
+  
   for (int i = 0; i < number_of_vertices; i++){
+    symmetricalGraph[i] = DynamicArray(number_of_vertices, 0);
     for (int j = 0; j < number_of_vertices; j++){
-      std::cin >> symmetricalGraph[i][j];
+      std::cin >> symmetricalGraph[i].array[j];
     }
   }
   return symmetricalGraph;

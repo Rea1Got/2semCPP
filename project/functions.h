@@ -1,16 +1,18 @@
-#include <vector>
 #include "adjacency_list_colored.h"
-
+#include "dynamic_array.h"
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 
 // list of functions
-std::vector<std::vector<int>> symmetricalGraphGenerate(int, int, int);
-std::vector<std::vector<int>> symmetricalGraphWrite(int);
-void printGraph(const std::vector<std::vector<int>>&);
-std::vector<std::vector<std::pair<int, int>>> adjacencyListGraph(std::vector<std::vector<int>> graph_matrix);
-void printAdjacencyList(std::vector<std::vector<std::pair<int, int>>> adjacency_list_graph);
-AdjacencyListColored breadthFirst(std::vector<std::vector<std::pair<int, int>>> adjacencyListGraph, int startVerticy);
+DynamicArray* symmetricalGraphGenerate(int, int, int);
+DynamicArray* symmetricalGraphWrite(int);
+void printGraph(DynamicArray*);
+
+DynamicArray** adjacencyListGraph(DynamicArray* graph_matrix);
+void printAdjacencyList(DynamicArray** adjacency_list_graph, int number_vertices);
+void freeAdjacencyList(DynamicArray** adjacency_list_graph, int number_vertices);
+
+AdjacencyListColored breadthFirst(DynamicArray** adjacencyListGraph, int number_vertices, int startVerticy);
 
 
 #endif 

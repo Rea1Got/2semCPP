@@ -1,15 +1,17 @@
 #ifndef adjacency_list_colored_H 
 #define adjacency_list_colored_H 
 
+#include "dynamic_array.h"
 #include <vector>
 
 struct AdjacencyListColored{
-    std::vector<int> color;              
-    std::vector<int> previousVertex;  
-    std::vector<int> distance;
+    DynamicArray color;              
+    DynamicArray previousVertex;  
+    DynamicArray distance;
 
-    AdjacencyListColored(std::vector<std::vector<std::pair<int ,int>>> adjacencyListGraph);
-   
+    AdjacencyListColored(int number_vertices);
+    
+    void free();
     void colorGray(int&);
     void paintItBlack(int&);
     void print();

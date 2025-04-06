@@ -1,25 +1,46 @@
 #include <iostream>
-#include <vector>
-#include <utility>
+#include "dynamic_array.h"
 
-std::vector<std::vector<std::pair<int, int>>> adjacencyListGraph(std::vector<std::vector<int>> graph_matrix){
-  std::vector<std::vector<std::pair<int, int>>> adjacency_list_graph(graph_matrix.size(), std::vector<std::pair<int, int>>());
-  for (int i = 0; i < graph_matrix.size(); i++){
-    for (int j = 0; j < graph_matrix.size(); j++){
-      if (graph_matrix[i][j] != 0){
-        adjacency_list_graph[i].push_back(std::pair(j, graph_matrix[i][j])); // pair of number of vertex and weight of edge
+DynamicArray** adjacencyListGraph(DynamicArray* graph_matrix){
+  int number_vertices = graph_matrix->size;
+  std::cout << number_vertices << std::endl;
+  DynamicArray** adjacency_list_graph = new DynamicArray*[number_vertices];
+  for (int i = 0; i < number_vertices; i++){
+    adjacency_list_graph[i] = new DynamicArray(); 
+  }
+  for (int i = 0; i < number_vertices; i++){
+    for (int j = 0; j < number_vertices; j++){
+      if (graph_matrix[i].get(j) != 0){
+        adjacency_list_graph[i]->append(j);
+        adjacency_list_graph[i]->append(graph_matrix[i].get(j)); // pair of number of vertex and weight of edge
       }
     }
   }
   return adjacency_list_graph;
 }
 
-void printAdjacencyList(const std::vector<std::vector<std::pair<int, int>>> adjacency_list_graph) {
-    for (int i = 0; i < adjacency_list_graph.size(); i++) {
+void printAdjacencyList(DynamicArray** adjacency_list_graph, int number_vertices) {
+    for (int i = 0; i < number_vertices; i++) {
         std::cout << "Vertex " << i << ": ";
-        for (int j = 0; j < adjacency_list_graph[i].size(); j++) {
-            std::cout << "(" << adjacency_list_graph[i][j].first << ", weight: " << adjacency_list_graph[i][j].second << ") ";
+        for (int j = 0; j < adjacency_list_graph[i]->size; j += 2) {
+            std::cout << "(" << adjacency_list_graph[i]->get(j) << ", weight: " << adjacency_list_graph[i]->get(j+1) << ") ";
         }
         std::cout << std::endl;
     }
+}
+
+void freeAdjacencyList(DynamicArray** adjacency_list_graph, int number_vertices) {
+    if (adjacency_list_graph == nullptr) {
+        return;
+    }
+
+    for (int i = 0; i < number_vertices; ++i) {
+        if (adjacency_list_graph[i] != nullptr) {
+            adjacency_list_graph[i]->delete_array();             
+        }
+        adjacency_list_graph = nullptr;
+    }
+
+    delete[] adjacency_list_graph;
+    adjacency_list_graph = nullptr; 
 }
