@@ -9,10 +9,13 @@ AdjacencyListColored breadthFirst(DynamicArray** adjacencyListGraph, int number_
   AdjacencyListColored adjacencyColor(number_vertices);
   adjacencyColor.color.array[start_vertex] = GRAY;
   adjacencyColor.distance.array[start_vertex] = 0;
+  
   Queue queue(number_vertices);
   queue.enqueue(start_vertex);
-  int current_vertex = start_vertex;  // bruh
+
+  int current_vertex = start_vertex;
   DynamicArray* currentVertexAdj = adjacencyListGraph[current_vertex];
+  
   while(queue.size() != 0){
     current_vertex = queue.dequeue();
     currentVertexAdj = adjacencyListGraph[current_vertex];
@@ -22,6 +25,7 @@ AdjacencyListColored breadthFirst(DynamicArray** adjacencyListGraph, int number_
         adjacencyColor.color.array[adj_vertex] = GRAY;
         adjacencyColor.distance.array[adj_vertex] = adjacencyColor.distance.array[current_vertex] + 1;
         adjacencyColor.previousVertex.array[adj_vertex] = current_vertex;
+        
         queue.enqueue(adj_vertex);
       }
     }
