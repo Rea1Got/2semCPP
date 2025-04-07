@@ -45,3 +45,16 @@ DynamicArray* symmetricalGraphWrite(int number_of_vertices){
   }
   return symmetricalGraph;
 }
+
+void freeSymmetricalGraph(DynamicArray* symmetrical_graph, int number_of_vertices) {
+  if (symmetrical_graph == nullptr) {
+    return;
+  }
+
+  for (int i = 0; i < number_of_vertices; ++i) {
+    symmetrical_graph[i].delete_array(); 
+  }
+
+  delete[] symmetrical_graph;
+  symmetrical_graph = nullptr;
+}

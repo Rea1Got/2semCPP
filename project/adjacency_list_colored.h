@@ -2,7 +2,6 @@
 #define adjacency_list_colored_H 
 
 #include "dynamic_array.h"
-#include <vector>
 
 struct AdjacencyListColored{
     DynamicArray color;              

@@ -1,7 +1,6 @@
 #include <iostream>
 #include "adjacency_list_colored.h"
 #include "dynamic_array.h"
-#include "functions.h"
 
 AdjacencyListColored::AdjacencyListColored(int number_vertices) \
                                               : color(), previousVertex(){

@@ -34,11 +34,12 @@ void freeAdjacencyList(DynamicArray** adjacency_list_graph, int number_vertices)
         return;
     }
 
-    for (int i = 0; i < number_vertices; ++i) {
+    for (int i = 0; i < number_vertices; i++) {
         if (adjacency_list_graph[i] != nullptr) {
-            adjacency_list_graph[i]->delete_array();             
+            adjacency_list_graph[i]->delete_array();  
+            delete adjacency_list_graph[i];
         }
-        adjacency_list_graph = nullptr;
+        adjacency_list_graph[i] = nullptr;
     }
 
     delete[] adjacency_list_graph;
