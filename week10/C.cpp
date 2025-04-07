@@ -21,7 +21,8 @@ int main(){
         k--;
     }
     cout << res;
-    delete[] a;
+    delete[] prices;
+    prices = nullptr;
     return 0;
 }
 

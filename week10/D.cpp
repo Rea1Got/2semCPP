@@ -2,32 +2,28 @@
 
 using namespace std;
 
-int main(){  
-    int n, k, len, km, count = 0;
-    bool flag = true;
-    cin >> n >> k >> len;
-    int *roz = new int[len];
+int main(){
+    long long int s, n = 0;
+    cin >> s >> n;
+    int* volume = new int[n];
     for (int i = 0; i < n; i++){
-        cin >> roz[i];
+        cin >> volume[i];
     }
-    
-    for (int i = 1; i < n; i++){
-        if (km >= n){
-            break;
-        }
-        if (km + k >= roz[i-1] - roz[i]){
-            km += k;
-            count++;
-        } else {
-            flag = false;
-            break;
+    for (int i = 0; i < n - 1; i++){
+        for (int j = i + 1; j < n; j++){
+            if (volume[i] > volume[j]){swap(volume[i], volume[j]);}
         }
     }
-    if (flag){
-        cout << count;
-    } else{
-        cout << -1;
+    int res = 0, current_volume = 0;
+    for(int i = 0; i < n; i++){
+        if (current_volume + volume[i] > s){
+            break;
+        }
+        res++;
+        current_volume += volume[i];
     }
-    delete [] roz; 
+    cout << res << endl;
+    delete[] volume;
+    volume = nullptr;
     return 0;
 }
