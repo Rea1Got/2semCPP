@@ -8,6 +8,7 @@
 #include "functions.h"
 #include "adjacency_list_colored.h"
 #include "dynamic_array.h"
+#include "depth_first.h"
 
 int main() {
   int number_of_vertices, user_answer = 0;
@@ -27,8 +28,6 @@ int main() {
     symmetrical_graph = symmetricalGraphWrite(number_of_vertices);
   }
 
-  // std::vector<std::vector<int>> symmetrical_graph = symmetricalGraphGenerate(NUMBER_OF_VERTICES, WEIGHT_MAX, SEED);
-  // printGraph(symmetrical_graph);
   DynamicArray** adjacency_list_graph = new DynamicArray*[number_of_vertices];
   adjacency_list_graph = adjacencyListGraph(symmetrical_graph);
   printAdjacencyList(adjacency_list_graph, number_of_vertices);
@@ -40,7 +39,14 @@ int main() {
   adjacency_result = breadthFirst(adjacency_list_graph, number_of_vertices, user_vertex);
   adjacency_result.print();
 
-  adjacency_result.free();
+  DFS dfs_result = depthFirst(adjacency_list_graph, number_of_vertices);
+  DFSprint(dfs_result, number_of_vertices);
 
+
+  freeSymmetricalGraph(symmetrical_graph, number_of_vertices);
+  freeAdjacencyList(adjacency_list_graph, number_of_vertices);
+  adjacency_result.free();
+  dfs_result.freeDFS(number_of_vertices);
+  
   return 0;
 }
