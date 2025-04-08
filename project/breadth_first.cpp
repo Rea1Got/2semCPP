@@ -7,6 +7,13 @@
 
 AdjacencyListColored breadthFirst(DynamicArray** adjacencyListGraph, int number_vertices, int start_vertex){
   AdjacencyListColored adjacencyColor(number_vertices);
+
+  if (number_vertices == 1) {  // because of the structure of queue.dequeue()
+    adjacencyColor.color.array[start_vertex] = BLACK;
+    adjacencyColor.distance.array[start_vertex] = 0;
+    return adjacencyColor;
+  }
+
   adjacencyColor.color.array[start_vertex] = GRAY;
   adjacencyColor.distance.array[start_vertex] = 0;
   
@@ -16,7 +23,7 @@ AdjacencyListColored breadthFirst(DynamicArray** adjacencyListGraph, int number_
   int current_vertex = start_vertex;
   DynamicArray* currentVertexAdj = adjacencyListGraph[current_vertex];
   
-  while(queue.size() != 0){
+  while(!queue.isEmpty()){
     current_vertex = queue.dequeue();
     currentVertexAdj = adjacencyListGraph[current_vertex];
     for (int i = 0; i < currentVertexAdj->size; i++){

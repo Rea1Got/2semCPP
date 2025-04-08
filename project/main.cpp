@@ -15,7 +15,7 @@ int main() {
 
   std::cout << "Do you want to generate symmetrical graph (0) or write it by yourself (1)? " << std::endl;
   std::cin >> user_answer;
-  DynamicArray* symmetrical_graph = new DynamicArray[number_of_vertices];
+  DynamicArray* symmetrical_graph;
   if(!user_answer){
     int weight_max, seed = 0;
     std::cout << "Write number of vertices, maximum weight of edges, seed: ";
@@ -33,18 +33,24 @@ int main() {
   printAdjacencyList(adjacency_list_graph, number_of_vertices);
 
   int user_vertex = 0;
-  std::cout << "Which vertex do you want to explore (starting from 0)? " << std::endl;
+  std::cout << "Which vertex do you want to explore (starting from 0 to "<< number_of_vertices - 1 <<")? " << std::endl;
   std::cin >> user_vertex;
+  if (user_vertex < 0 or user_vertex > number_of_vertices){
+    throw std::invalid_argument("Error! Invalid number of vertex.");
+  }
+
   AdjacencyListColored adjacency_result = AdjacencyListColored(number_of_vertices); 
   adjacency_result = breadthFirst(adjacency_list_graph, number_of_vertices, user_vertex);
   adjacency_result.print();
+
+  std::cout << std::endl;
 
   DFS dfs_result = depthFirst(adjacency_list_graph, number_of_vertices);
   DFSprint(dfs_result, number_of_vertices);
 
 
-  freeSymmetricalGraph(symmetrical_graph, number_of_vertices);
   freeAdjacencyList(adjacency_list_graph, number_of_vertices);
+  freeSymmetricalGraph(symmetrical_graph, number_of_vertices);
   adjacency_result.free();
   dfs_result.freeDFS(number_of_vertices);
   
