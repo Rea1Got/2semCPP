@@ -24,10 +24,10 @@ DynamicArray* symmetricalGraphGenerate(int number_of_vertices, int weight_max, i
   return symmetrical_graph;
 }
 
-void printGraph(DynamicArray* arr){
-  for (int i = 0; i < arr->size; i++) { 
+void printGraph(DynamicArray* arr, int number_of_vertices){
+  for (int i = 0; i < number_of_vertices; i++) { 
     for (int j = 0; j < arr[i].size; j++) { 
-      std::cout << arr[i].array[j] << " ";
+      std::cout << arr[i].get(j) << " ";
     }
     std::cout << std::endl;
   }
@@ -46,7 +46,7 @@ DynamicArray* symmetricalGraphWrite(int number_of_vertices){
   return symmetricalGraph;
 }
 
-void freeSymmetricalGraph(DynamicArray* symmetrical_graph, int number_of_vertices) {
+void freeSymmetricalGraph(DynamicArray*& symmetrical_graph, int number_of_vertices) {
   if (symmetrical_graph == nullptr) {
     return;
   }

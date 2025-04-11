@@ -1,14 +1,15 @@
 // TODO -visualisation of simple graph- DONE
-//      breadth-first/depth-first search
+//      -breadth-first/depth-first search- DONE
 //      shortest path search
 //      minimum spanning tree search
-//      shortest paths between all vetices
+//      shortest paths between all vertices
 
 #include <iostream>
-#include "functions.h"
-#include "adjacency_list_colored.h"
-#include "dynamic_array.h"
-#include "depth_first.h"
+#include "src/functions.h"
+#include "src/adjacency_list_colored.h"
+#include "src/dynamic_array.h"
+#include "src/depth_first.h"
+// #include "tests/tests.h"
 
 int main() {
   int number_of_vertices, user_answer = 0;
@@ -21,15 +22,14 @@ int main() {
     std::cout << "Write number of vertices, maximum weight of edges, seed: ";
     std::cin >> number_of_vertices >> weight_max >> seed;
     symmetrical_graph = symmetricalGraphGenerate(number_of_vertices, weight_max, seed);
-    printGraph(symmetrical_graph);
+    printGraph(symmetrical_graph, number_of_vertices);
   } else {
     std::cout << "Write number of vertices: ";
     std::cin >> number_of_vertices;
     symmetrical_graph = symmetricalGraphWrite(number_of_vertices);
   }
 
-  DynamicArray** adjacency_list_graph = new DynamicArray*[number_of_vertices];
-  adjacency_list_graph = adjacencyListGraph(symmetrical_graph);
+  DynamicArray** adjacency_list_graph = adjacencyListGraph(symmetrical_graph);
   printAdjacencyList(adjacency_list_graph, number_of_vertices);
 
   int user_vertex = 0;
@@ -53,6 +53,6 @@ int main() {
   freeSymmetricalGraph(symmetrical_graph, number_of_vertices);
   adjacency_result.free();
   dfs_result.freeDFS(number_of_vertices);
-  
+
   return 0;
 }

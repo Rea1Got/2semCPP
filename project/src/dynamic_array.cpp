@@ -1,17 +1,41 @@
 #include "dynamic_array.h"
-//#include <iostream>
 #include <stdexcept>
 
 
-DynamicArray::DynamicArray() : size(0), capacity(INIT_CAPACITY), array(new int[INIT_CAPACITY]) {}
+DynamicArray::DynamicArray() : size(0), capacity(0), array(nullptr) {}
 
-DynamicArray::DynamicArray(int initialSize, int value) : size(0), capacity(initialSize), array(new int[initialSize]) {
-  for (int i = 0; i < initialSize; i++){
-    append(value);
-  }
+DynamicArray::DynamicArray(int size, int initialValue) : size(size) {
+    array = new int[size];
+    for (int i = 0; i < size; ++i) {
+        array[i] = initialValue;
+    }
 }
 
-int DynamicArray::get(int index){
+DynamicArray::DynamicArray(const DynamicArray& other) : size(other.size) {
+    array = new int[size]; // Deep copy: allocate new memory
+    for (int i = 0; i < size; ++i) {
+        array[i] = other.array[i];
+    }
+}
+
+DynamicArray& DynamicArray::operator=(const DynamicArray& other) {
+    if (this == &other) {
+        return *this; // Prevent self-assignment
+    }
+
+    // Deep copy:
+    delete_array(); // First, free existing memory
+
+    size = other.size;
+    array = new int[size];
+    for (int i = 0; i < size; ++i) {
+        array[i] = other.array[i];
+    }
+
+    return *this;
+}
+
+int DynamicArray::get(int index) const{
   if (index < 0 or index >= size){
     throw std::out_of_range("Error! Index out of range.");
   }
@@ -45,7 +69,7 @@ void DynamicArray::append(int value){
     for (int i = 0; i < size; i++){
       new_array[i] = array[i];
     }
-    delete_array();
+    delete[] array;
     array = new_array;
     capacity = new_capacity;
   }
@@ -63,13 +87,7 @@ void DynamicArray::delete_array(){
   size = 0;
 }
 
-//int main(){
-//  DynamicArray myArray;
-//  std::cout << myArray.capacity << std::endl;
-// for(int i = 0; i < 10; i++){
-//    myArray.append(i);
-//    std::cout << myArray.get(i);
-// }
-//  myArray.delete_array();
-//  return 0;
-//}
+DynamicArray::~DynamicArray(){
+  delete_array();
+}
+

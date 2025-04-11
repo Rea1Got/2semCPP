@@ -7,8 +7,8 @@
 
 DynamicArray* symmetricalGraphGenerate(int, int, int);
 DynamicArray* symmetricalGraphWrite(int);
-void printGraph(DynamicArray*);
-void freeSymmetricalGraph(DynamicArray*, int);
+void printGraph(DynamicArray*, int);
+void freeSymmetricalGraph(DynamicArray*&, int);
 
 DynamicArray** adjacencyListGraph(DynamicArray* graph_matrix);
 void printAdjacencyList(DynamicArray** adjacency_list_graph, int number_vertices);

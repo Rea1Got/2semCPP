@@ -24,8 +24,6 @@ void depthFirstVisit (DynamicArray**& adjacency_list, DFS& result, \
   result.adjacencyColor.color.array[current_vertex] = GRAY;
   time_current++;
   result.time[current_vertex].append(time_current);
-  //std::cerr << "current_vertex: " << current_vertex << " ";
-  //std::cerr << adjacency_list[current_vertex]->size << " previousVertex: " << result.adjacencyColor.previousVertex.array[adjacency_list[current_vertex]->size] << std::endl;
   for (int i = 0; i < adjacency_list[current_vertex]->size; i++){
     int adjacent_vertex = adjacency_list[current_vertex]->get(i);
     if (result.adjacencyColor.color.array[adjacent_vertex] == WHITE){
@@ -36,7 +34,6 @@ void depthFirstVisit (DynamicArray**& adjacency_list, DFS& result, \
   result.adjacencyColor.color.array[current_vertex] = BLACK;
   time_current++;
   result.time[current_vertex].append(time_current);
-  //std::cerr << "current_vertex: " << current_vertex << "previousVertex_2: " << result.adjacencyColor.previousVertex.array[adjacency_list[current_vertex]->size] << std::endl;
 }
 
 DFS depthFirst (DynamicArray** adjacency_list, int number_vertices){
