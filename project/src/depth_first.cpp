@@ -46,7 +46,7 @@ DFS depthFirst (DynamicArray** adjacency_list, int number_vertices){
   int time_current = 0;
 
   for (int current_vertex = 0; current_vertex < number_vertices; current_vertex++) {
-    if (adjacencyColor.color.get(current_vertex) == WHITE){
+    if (result.adjacencyColor.color.get(current_vertex) == WHITE){
       depthFirstVisit(adjacency_list, result, number_vertices, current_vertex, time_current); 
     }
   }
@@ -56,7 +56,7 @@ DFS depthFirst (DynamicArray** adjacency_list, int number_vertices){
 void DFSprint(DFS dfs_result, int number_of_vertices){
   std::cout << "Depth-first algotithm is finished!" << std::endl;
   for (int i = 0; i < number_of_vertices; i++) {
-      std::cout << "Vertex " << i << ": " << " Previous = " << dfs_result.adjacencyColor.previousVertex.array[i] << " ";
+      std::cout << "Vertex " << i << " Previous = " << dfs_result.adjacencyColor.previousVertex.array[i] << " ";
       std::cout << "  Times: ";
       for (int j = 0; j < dfs_result.time[i].size; ++j) {
           std::cout << dfs_result.time[i].get(j) << " ";
