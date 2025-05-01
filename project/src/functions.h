@@ -20,5 +20,8 @@ void depthFirstVisit (DynamicArray**& adjacency_list, DFS result, \
                       int number_vertices, int current_vertex, int& time_current);
 DFS depthFirst (DynamicArray** adjacency_list, int number_vertices);
 void DFSprint(DFS dfs_result, int number_of_vertices);
+
+DynamicArray disconnected_sets(const DFS& dfs_result, int number_vertices);
+
 #endif 
 

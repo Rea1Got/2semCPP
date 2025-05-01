@@ -53,12 +53,38 @@ DFS depthFirst (DynamicArray** adjacency_list, int number_vertices){
   return result;
 }
 
+DynamicArray disconnected_sets(const DFS& dfs_result, int number_vertices){
+  DynamicArray result(number_vertices, -1);
+  int current_time_max, current_time_min = -1;
+  for (int i = 0; i < number_vertices - 1; i++){
+    current_time_min = dfs_result.time[i].get(0);
+    current_time_max = dfs_result.time[i].get(1);  
+    for (int j = i + 1; j < number_vertices; j++){
+      if (dfs_result.time[j].get(1) <= current_time_max and dfs_result.time[j].get(0) >= current_time_min and result.array[j] == -1){
+        result.array[j] = i;
+      }
+    }
+  }
+  
+  for (int i = 0; i < number_vertices; i++){  // bruh
+    if (result.get(i) == -1){
+      result.array[i] = i;
+    }
+  }
+
+  // for (int i = 0; i < number_vertices; i++){
+  //   std::cout << result.array[i] << " ";
+  // }
+  // std::cout << std::endl;
+  return result;
+}
+
 void DFSprint(DFS dfs_result, int number_of_vertices){
   std::cout << "Depth-first algotithm is finished!" << std::endl;
   for (int i = 0; i < number_of_vertices; i++) {
       std::cout << "Vertex " << i << " Previous = " << dfs_result.adjacencyColor.previousVertex.array[i] << " ";
       std::cout << "  Times: ";
-      for (int j = 0; j < dfs_result.time[i].size; ++j) {
+      for (int j = 0; j < dfs_result.time[i].size; j++){
           std::cout << dfs_result.time[i].get(j) << " ";
       }
       std::cout << std::endl;
