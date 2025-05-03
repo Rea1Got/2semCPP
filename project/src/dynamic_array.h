@@ -14,8 +14,6 @@ struct DynamicArray{
   DynamicArray& operator=(const DynamicArray& other); 
 
   int get(int index) const;
-  int getSize();
-  int getCapacity();
   void resize(int new_capacity);
   void append(int value);
   void delete_array();

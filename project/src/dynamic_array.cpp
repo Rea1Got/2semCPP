@@ -10,6 +10,8 @@ DynamicArray::DynamicArray(int size, int initialValue) : size(size) {
         array[i] = initialValue;
     }
 }
+////////////////////////////////////////////////////////////////////////////
+// chat-gpt corner
 
 DynamicArray::DynamicArray(const DynamicArray& other) : size(other.size) {
     array = new int[size]; // Deep copy: allocate new memory
@@ -34,6 +36,9 @@ DynamicArray& DynamicArray::operator=(const DynamicArray& other) {
 
     return *this;
 }
+
+// chat-gpt corner
+///////////////////////////////////////////////////////////////////////////
 
 int DynamicArray::get(int index) const{
   if (index < 0 or index >= size){

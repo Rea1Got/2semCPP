@@ -23,5 +23,6 @@ void DFSprint(DFS dfs_result, int number_of_vertices);
 
 DynamicArray disconnected_sets(const DFS& dfs_result, int number_vertices);
 
+DynamicArray* MST_Kruskal(DynamicArray**& adjacency_list, int number_vertices);
 #endif 
 
