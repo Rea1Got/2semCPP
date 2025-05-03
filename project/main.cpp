@@ -47,8 +47,16 @@ int main() {
 
   DFS dfs_result = depthFirst(adjacency_list_graph, number_of_vertices);
   DFSprint(dfs_result, number_of_vertices);
+  
+  std::cout << "Connected subgraphs: " << std::endl;
+  DynamicArray subgraphs = disconnected_sets(dfs_result, number_of_vertices); 
+  for (int i = 0; i < number_of_vertices; i++){
+    std::cout << "Vertex " << i << " represented by: " << subgraphs.get(i) << std::endl;
+  }
 
+  // MST_Kruskal(adjacency_list_graph, number_of_vertices); 
 
+  subgraphs.delete_array();
   freeAdjacencyList(adjacency_list_graph, number_of_vertices);
   freeSymmetricalGraph(symmetrical_graph, number_of_vertices);
   adjacency_result.free();
